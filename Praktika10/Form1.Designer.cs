@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -38,7 +40,7 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Location = new System.Drawing.Point(80, 32);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(400, 800);
+            this.panel1.Size = new System.Drawing.Size(429, 617);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -48,15 +50,27 @@
             this.timer1.Interval = 250;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // pBox1
+            // 
+            this.pBox1.Location = new System.Drawing.Point(592, 32);
+            this.pBox1.Name = "pBox1";
+            this.pBox1.Size = new System.Drawing.Size(429, 617);
+            this.pBox1.TabIndex = 1;
+            this.pBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 853);
+            this.ClientSize = new System.Drawing.Size(1249, 853);
+            this.Controls.Add(this.pBox1);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+            ((System.ComponentModel.ISupportInitialize)(this.pBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -65,6 +79,7 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.PictureBox pBox1;
     }
 }
 
