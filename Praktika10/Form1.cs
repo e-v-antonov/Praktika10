@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Praktika10
@@ -20,7 +14,15 @@ namespace Praktika10
         public int[,] field = new int[widthField, heightField]; //ширина и высота
         public Bitmap bit = new Bitmap(cellSize * widthField, cellSize * heightField);
         public Graphics gr;
-        
+        public int points = 0;
+        public Brush[] colorFigure = {Brushes.White, Brushes.Orange, Brushes.Blue, Brushes.Red, Brushes.Green, Brushes.Honeydew,
+            Brushes.Violet, Brushes.Tomato, Brushes.SteelBlue, Brushes.PapayaWhip};
+        public int numberColorFigure;
+        public int[,] colorField = new int[widthField, heightField];
+        public int numberColorField;
+        public Random selectFigure = new Random();
+        public Random selectColorFigure = new Random();
+
         public Form1()
         {
             InitializeComponent();
@@ -29,9 +31,7 @@ namespace Praktika10
         }
 
         public void ChoiceFigure()
-        {
-            Random selectFigure = new Random();
-
+        {          
             switch(selectFigure.Next(7))
             {
                 case 0:
@@ -77,22 +77,30 @@ namespace Praktika10
                                         };
                     break;
             }
+
+            numberColorFigure = selectColorFigure.Next(10);
         }
 
         public void FillField()
         {
             gr.Clear(Color.Black);
+
             for (int i = 0; i < widthField; i++)
                 for (int j = 0; j < heightField; j++)
-                    if (field[i, j] == 1) //если клетка поля существует          
-                        gr.FillRectangle(Brushes.Green, i * cellSize, j * cellSize, cellSize, cellSize);
-
+                    if (field[i, j] == 1) //если клетка поля существует  
+                    {
+                        //if (j != 0)
+                        {
+                            numberColorField = colorField[i, j];
+                            gr.FillRectangle(colorFigure[numberColorField], i * cellSize, j * cellSize, (cellSize - 1) * field[i, j], (cellSize - 1) * field[i, j]);
+                        }
+                    }
+            
             for (int i = 0; i < 4; i++) //рисуем падающую фигуру
-                gr.FillRectangle(Brushes.Red, figure[1, i] * cellSize, figure[0, i] * cellSize, cellSize, cellSize);
+                gr.FillRectangle(colorFigure[numberColorFigure], figure[1, i] * cellSize, figure[0, i] * cellSize, cellSize - 1, cellSize - 1);
 
             pBox1.Image = bit;
         }
-
 
         public bool FindError()
         {
@@ -107,21 +115,23 @@ namespace Praktika10
         {
             int checkRow = 0;
 
-            if (field[8, 0] == 1)   // Если клетка поля, на которой появляются фигурки заполнены, завершить программу.
+            if (field[8, 1] == 1)   // Если клетка поля, на которой появляются фигурки заполнены, завершить программу.
             {
                 timer1.Enabled = false;
                 MessageBox.Show("Вы проиграли!");
+                return;
             }
 
             for (int i = 0; i < 4; i++)
-                figure[0, i]++; // Сместить фигурку вниз
-
-            
+                figure[0, i]++; // Сместить фигурку вниз            
 
             if (FindError() == true)
             {
                 for (int i = 0; i < 4; i++)
+                {
                     field[figure[1, i], --figure[0, i]]++;
+                    colorField[figure[1, i], figure[0, i]] = numberColorFigure;
+                }
 
                 ChoiceFigure();
             } // Если нашлась ошибка, перенести фигурку на 1 клетку вверх, сохранить её в массив field и создать новую фигурку
@@ -135,26 +145,23 @@ namespace Praktika10
                     if (field[j, i] == 1)
                         checkRow++;
 
-                    if (checkRow == 15)
-                        for (int k = i; k > 1; k--)
-                            for (int l = 1; l < widthField- 1; l++)
-                                field[l, k] = field[l, k - 1];
+                    if (checkRow == widthField)
+                    {
+                        for (int z = i; z > 1; z--)
+                            for (int w = 0; w < widthField; w++)
+                            {
+                                field[w, z] = field[w, z - 1];
+                                colorField[w, z] = colorField[w, z - 1];
+                            }
+
+                        points += 100;
+                        label1.Text = points.ToString();
+                    }
                 }   // Проверка на заполненность рядом, если нашлись ряды, в которых все клетки заполнены, сместить все ряды, которые находятся выше убранной линии, на 1 вниз
-                //panel1.Refresh();
+
                 FillField();
             }
 
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            //for (int i = 0; i < widthField; i++)
-            //    for (int j = 0; j < heightField; j++)
-            //        if (field[i, j] == 1) //если клетка поля существует          
-            //            e.Graphics.FillRectangle(Brushes.Green, i * cellSize, j * cellSize, cellSize, cellSize);
-
-            //for (int i = 0; i < 4; i++) //рисуем падающую фигуру
-            //    e.Graphics.FillRectangle(Brushes.Red, figure[1, i] * cellSize, figure[0, i] * cellSize, cellSize, cellSize);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -206,7 +213,7 @@ namespace Praktika10
                 break;
 
                 case Keys.S:
-                    timer1.Interval = 80;
+                    timer1.Interval = 50;
                 break;
             }
         }
@@ -215,6 +222,16 @@ namespace Praktika10
         {
             if (e.KeyCode == Keys.S)
                 timer1.Interval = 250;
+        }
+
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+        }
+
+        private void btnContinue_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = true;
         }
     }
 }
