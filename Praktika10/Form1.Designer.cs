@@ -34,17 +34,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnContinue = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
             this.timer1.Interval = 250;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // pBox1
             // 
+            this.pBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.pBox1.Location = new System.Drawing.Point(48, 32);
             this.pBox1.Name = "pBox1";
             this.pBox1.Size = new System.Drawing.Size(429, 617);
@@ -62,9 +63,9 @@
             // 
             // btnPause
             // 
-            this.btnPause.Location = new System.Drawing.Point(568, 128);
+            this.btnPause.Location = new System.Drawing.Point(520, 272);
             this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(104, 56);
+            this.btnPause.Size = new System.Drawing.Size(120, 56);
             this.btnPause.TabIndex = 0;
             this.btnPause.TabStop = false;
             this.btnPause.Text = " Пауза";
@@ -73,27 +74,42 @@
             // 
             // btnContinue
             // 
-            this.btnContinue.Location = new System.Drawing.Point(560, 224);
+            this.btnContinue.Location = new System.Drawing.Point(520, 360);
             this.btnContinue.Name = "btnContinue";
-            this.btnContinue.Size = new System.Drawing.Size(120, 23);
+            this.btnContinue.Size = new System.Drawing.Size(120, 56);
             this.btnContinue.TabIndex = 4;
             this.btnContinue.TabStop = false;
             this.btnContinue.Text = "Продолжить";
             this.btnContinue.UseVisualStyleBackColor = true;
             this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
             // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(520, 184);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(120, 56);
+            this.btnStart.TabIndex = 5;
+            this.btnStart.TabStop = false;
+            this.btnStart.Text = "Старт";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1249, 853);
+            this.ClientSize = new System.Drawing.Size(685, 680);
+            this.Controls.Add(this.btnStart);
             this.Controls.Add(this.btnContinue);
             this.Controls.Add(this.btnPause);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pBox1);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pBox1)).EndInit();
@@ -108,6 +124,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.Button btnContinue;
+        private System.Windows.Forms.Button btnStart;
     }
 }
 

@@ -22,6 +22,7 @@ namespace Praktika10
         public int numberColorField;
         public Random selectFigure = new Random();
         public Random selectColorFigure = new Random();
+        public bool newGame = false;
 
         public Form1()
         {
@@ -36,26 +37,26 @@ namespace Praktika10
             {
                 case 0:
                     figure = new int[,] {
-                                            {0, 0, 0, 0}, //{0, 1, 2, 3}, 
-                                            {6, 7, 8, 9} //{7, 7, 7, 7}
+                                            {0, 0, 0, 0}, 
+                                            {6, 7, 8, 9} 
                                         };     //первые значения - положение по Y, вторые  - по X
                     break;
                 case 1:
                     figure = new int[,] {
                                             {0, 1, 0, 1},
-                                            {8, 8, 9, 9}
+                                            {7, 7, 8, 8}
                                         }; 
                     break;
                 case 2:
                     figure = new int[,] {
-                                            {1, 1, 0, 1},   //{0, 1, 2, 2}, 
-                                            {6, 7, 8, 8}    //{6, 7, 8, 9}                                                                                     
+                                            {1, 1, 0, 1},   
+                                            {6, 7, 8, 8}                                                                                       
                                         };
                     break;
                 case 3:
                     figure = new int[,] {
-                                            {0, 1, 1, 1},     //{0, 1, 2, 2}, 
-                                            {6, 6, 7, 8}     //{8, 8, 8, 7}
+                                            {0, 1, 1, 1},    
+                                            {6, 6, 7, 8}     
                                         };
                     break;
                 case 4:
@@ -119,6 +120,10 @@ namespace Praktika10
             {
                 timer1.Enabled = false;
                 MessageBox.Show("Вы проиграли!");
+                newGame = false;
+                btnStart.Enabled = true;
+                btnPause.Enabled = false;
+                btnContinue.Enabled = false;
                 return;
             }
 
@@ -227,11 +232,38 @@ namespace Praktika10
         private void btnPause_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
+            btnPause.Enabled = false;
+            btnContinue.Enabled = true;
         }
 
         private void btnContinue_Click(object sender, EventArgs e)
         {
             timer1.Enabled = true;
+            btnContinue.Enabled = false;
+            btnPause.Enabled = true;
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < widthField; i++)
+                for (int j = 0; j < heightField; j++)
+                {
+                    field[i, j] = 0;
+                    colorField[i, j] = 0;
+                }
+
+            points = 0;
+            label1.Text = points.ToString();
+            timer1.Enabled = true;
+            btnStart.Enabled = false;
+            btnPause.Enabled = true;
+            newGame = true;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            btnPause.Enabled = false;
+            btnContinue.Enabled = false;
         }
     }
 }
