@@ -18,12 +18,11 @@ namespace Praktika10
         public int[,] colorField = new int[widthField, heightField];
         public Brush[] colorFigure = {Brushes.White, Brushes.Orange, Brushes.Blue, Brushes.Red, Brushes.Green, Brushes.Honeydew,
             Brushes.Violet, Brushes.Tomato, Brushes.SteelBlue, Brushes.PapayaWhip};
-        public static Bitmap bit = new Bitmap(320, 500);
+        public static Bitmap bit = new Bitmap(widthField * cellSize, heightField * cellSize);
         public static Graphics gr = Graphics.FromImage(bit);
 
         public void FillField()
         {
-            //gr = Graphics.FromImage(bit);
             gr.Clear(Color.Black);
 
             for (int i = 0; i < widthField; i++)
