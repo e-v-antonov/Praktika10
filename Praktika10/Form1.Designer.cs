@@ -119,12 +119,12 @@
         }
 
         #endregion
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.PictureBox pBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnPause;
-        private System.Windows.Forms.Button btnContinue;
-        private System.Windows.Forms.Button btnStart;
+        public System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.PictureBox pBox1;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Button btnPause;
+        public System.Windows.Forms.Button btnContinue;
+        public System.Windows.Forms.Button btnStart;
     }
 }
 
