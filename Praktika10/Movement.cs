@@ -12,6 +12,7 @@ namespace Praktika10
         public bool newGame = false;
         public int points = 0;
         Error error = new Error();
+        InsertPoints insertPoints = new InsertPoints();
 
         public void MovementTimer()
         {
@@ -20,11 +21,16 @@ namespace Praktika10
             if (field[8, 1] == 1)   // Если клетка поля, на которой появляются фигурки заполнены, завершить программу.
             {
                 Program.form1.timer1.Enabled = false;
+
+                if (Avtoriz.simpleGame == false)
+                    insertPoints.Insert(points);
+
                 MessageBox.Show("Вы проиграли!");
                 newGame = false;
                 Program.form1.btnStart.Enabled = true;
                 Program.form1.btnPause.Enabled = false;
                 Program.form1.btnContinue.Enabled = false;
+                Program.form1.menuStrip1.Enabled = true;
                 return;
             }
 
